@@ -1,78 +1,587 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" data-lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gustavo Jejer</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" href="./images/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lekton:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gustavo Javier Jejer — System Engineer · Identidad y seguridad Microsoft</title>
+<meta name="description" content="System Engineer especializado en Microsoft 365, Entra ID, Conditional Access, Intune y Defender XDR en entornos híbridos y multi-tenant. Barcelona.">
+<meta name="author" content="Gustavo Javier Jejer">
+<link rel="canonical" href="https://gustavojejer.github.io/">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Gustavo Javier Jejer — System Engineer · Identidad y seguridad Microsoft">
+<meta property="og:description" content="Entra ID, Conditional Access, Intune y Defender XDR en entornos híbridos y multi-tenant. Barcelona.">
+<meta property="og:locale" content="es_ES">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230d1b2a'/><text x='50' y='68' font-size='54' font-family='Helvetica,Arial' font-weight='700' fill='%232e9e8f' text-anchor='middle'>GJ</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#e8ebee;
+  --surface:#ffffff;
+  --ink:#0d1b2a;
+  --ink-soft:#42566b;
+  --line:#c9d1d8;
+  --grant:#116f61;
+  --grant-soft:#e4f0ed;
+  --focus:#116f61;
+  --measure:64ch;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0b141d;
+    --surface:#121f2b;
+    --ink:#e7eef3;
+    --ink-soft:#9fb3c2;
+    --line:#26384a;
+    --grant:#54c4b0;
+    --grant-soft:#142f2b;
+    --focus:#54c4b0;
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.0625rem;
+  line-height:1.62;
+  font-optical-sizing:auto;
+}
+h1,h2,h3,.badge__role,.nav a,.tag,.meta,.btn,.switcher{
+  font-family:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:2px}
+
+.skip{
+  position:absolute;left:-9999px;top:0;background:var(--surface);color:var(--ink);
+  padding:.7rem 1rem;z-index:20;text-decoration:none;
+}
+.skip:focus{left:1rem;top:1rem}
+
+/* ---------- language switcher ---------- */
+.switcher{
+  position:fixed;top:1.1rem;right:1.1rem;z-index:15;
+  display:flex;border:1px solid var(--line);background:var(--surface);
+  font-size:.82rem;overflow:hidden;
+}
+.switcher button{
+  appearance:none;border:0;background:transparent;color:var(--ink-soft);
+  padding:.5rem .85rem;cursor:pointer;font:inherit;font-weight:500;
+  transition:background .15s,color .15s;
+}
+.switcher button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.switcher button:not([aria-pressed="true"]):hover{color:var(--ink)}
+
+/* ---------- layout ---------- */
+.shell{
+  max-width:1180px;margin:0 auto;padding:clamp(3.5rem,6vw,3.5rem) clamp(1.1rem,4vw,3rem) clamp(1.25rem,4vw,3.5rem);
+  display:grid;gap:clamp(2rem,4vw,3.5rem);
+  grid-template-columns:minmax(0,1fr);
+  align-items:start;
+}
+@media (min-width:960px){
+  .shell{grid-template-columns:20.5rem minmax(0,1fr);padding-top:clamp(2rem,4vw,3.5rem)}
+  .badge{position:sticky;top:clamp(1.25rem,4vw,3.5rem)}
+}
+
+/* ---------- identity badge (the one loud element) ---------- */
+.badge{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:6px solid var(--grant);
+  padding:clamp(1.5rem,3vw,2rem);
+}
+.badge__status{
+  display:flex;align-items:center;gap:.55rem;
+  font-family:"Space Grotesk",sans-serif;font-size:.82rem;letter-spacing:.01em;
+  color:var(--grant);margin:0 0 1.35rem;
+}
+.dot{
+  width:.55rem;height:.55rem;border-radius:50%;background:var(--grant);
+  box-shadow:0 0 0 4px var(--grant-soft);flex:none;
+}
+h1{
+  font-size:clamp(2.1rem,5.2vw,2.7rem);
+  font-weight:600;line-height:1.04;letter-spacing:-.025em;
+  margin:0 0 .75rem;
+  animation:rise .6s ease-out both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.badge__role{
+  font-size:1rem;font-weight:500;line-height:1.4;margin:0 0 1.5rem;color:var(--ink);
+}
+.badge__role span{display:block;font-weight:400;color:var(--ink-soft);font-size:.94rem;margin-top:.3rem}
+
+.contact{list-style:none;margin:0 0 1.75rem;padding:0;font-size:.97rem}
+.contact li{padding:.42rem 0;border-top:1px solid var(--line)}
+.contact li:first-child{border-top:0;padding-top:0}
+.contact a{text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .15s}
+.contact a:hover{border-color:var(--grant)}
+.contact .label{display:block;font-family:"Space Grotesk",sans-serif;font-size:.74rem;color:var(--ink-soft);letter-spacing:.02em}
+
+.nav{border-top:1px solid var(--line);padding-top:1rem}
+.nav ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.nav a{font-size:.87rem;text-decoration:none;color:var(--ink-soft)}
+.nav a:hover{color:var(--grant)}
+
+.btn{
+  display:inline-block;margin-top:1.5rem;padding:.7rem 1.15rem;
+  background:var(--ink);color:var(--paper);text-decoration:none;
+  font-size:.9rem;font-weight:500;border:1px solid var(--ink);
+  transition:background .15s,color .15s;
+}
+.btn:hover{background:var(--grant);border-color:var(--grant);color:#fff}
+
+/* ---------- content ---------- */
+main>section{margin:0 0 clamp(2.75rem,5vw,4rem)}
+main>section:last-of-type{margin-bottom:0}
+h2{
+  font-size:.95rem;font-weight:600;letter-spacing:.01em;
+  margin:0 0 1.35rem;padding-bottom:.55rem;border-bottom:1px solid var(--line);
+  color:var(--ink-soft);
+}
+p{max-width:var(--measure)}
+.lede{font-size:1.28rem;line-height:1.55;font-weight:300;margin:0 0 1rem}
+
+/* capacidades */
+.domains{margin:0;display:grid;gap:1.4rem}
+@media (min-width:620px){.domains{grid-template-columns:1fr 1fr;gap:1.4rem 2.5rem}}
+.domains div{border-top:1px solid var(--line);padding-top:.7rem}
+.domains dt{
+  font-family:"Space Grotesk",sans-serif;font-size:.83rem;font-weight:600;
+  margin-bottom:.3rem;
+}
+.domains dd{margin:0;font-size:1rem;color:var(--ink-soft);line-height:1.5}
+
+/* experiencia */
+.role{
+  display:grid;gap:.35rem 1.75rem;padding:1.5rem 0;border-top:1px solid var(--line);
+}
+.role:first-of-type{border-top:0;padding-top:0}
+@media (min-width:760px){
+  .role{grid-template-columns:8.5rem minmax(0,1fr)}
+  .role .meta{grid-row:1/span 3}
+}
+.meta{font-size:.82rem;color:var(--ink-soft);line-height:1.45;padding-top:.28rem}
+.meta b{display:block;font-weight:600;color:var(--ink);font-size:.86rem}
+h3{font-size:1.22rem;font-weight:600;letter-spacing:-.01em;margin:0}
+.where{margin:.1rem 0 .6rem;font-size:.97rem;color:var(--ink-soft)}
+.where strong{color:var(--ink);font-weight:500}
+.role ul{margin:0;padding-left:1.1rem;max-width:var(--measure)}
+.role li{margin-bottom:.4rem}
+.role li::marker{color:var(--grant)}
+
+/* listas planas */
+.tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.tag{
+  font-size:.85rem;padding:.35rem .7rem;border:1px solid var(--line);
+  background:var(--surface);
+}
+.split{display:grid;gap:1.75rem}
+@media (min-width:620px){.split{grid-template-columns:1fr 1fr;gap:2.5rem}}
+.split h3{font-size:1rem;margin-bottom:.5rem}
+.split p{margin:0;font-size:1rem;color:var(--ink-soft)}
+.split .years{font-size:.84rem;color:var(--ink-soft);font-family:"Space Grotesk",sans-serif}
+
+footer{
+  max-width:1180px;margin:0 auto;padding:2.5rem clamp(1.1rem,4vw,3rem) 3rem;
+  border-top:1px solid var(--line);font-size:.9rem;color:var(--ink-soft);
+}
+footer a{text-decoration:none;border-bottom:1px solid var(--line)}
+
+/* ---------- i18n toggling ---------- */
+[data-lang-content]{display:none}
+:root[data-lang="es"] [data-lang-content="es"]{display:block}
+:root[data-lang="en"] [data-lang-content="en"]{display:block}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important}
+}
+
+/* ---------- print / guardar como PDF ---------- */
+@media print{
+  :root{--paper:#fff;--surface:#fff;--ink:#000;--ink-soft:#333;--line:#bbb;--grant:#000}
+  body{font-size:10.5pt;line-height:1.4}
+  .shell{display:block;max-width:none;padding:0}
+  .badge{border:0;border-bottom:1.5pt solid #000;padding:0 0 .6rem;margin-bottom:1rem}
+  .badge__status,.nav,.btn,.switcher{display:none}
+  .contact{display:flex;flex-wrap:wrap;gap:.2rem 1.5rem;margin-bottom:0}
+  .contact li{border:0;padding:0}
+  .contact .label{display:none}
+  .role,.domains div,section{break-inside:avoid;page-break-inside:avoid}
+  h1{animation:none}
+  footer{display:none}
+}
+</style>
 </head>
 <body>
-    <main class="home">
-        <div class="top">
-            <img class="avatar" src="./images/gjejer.png" alt="avatar">
-            <h1>Hola! Soy Gustavo Jejer</h1>
-            <h2>Bienvenido a mi portafolio</h2>
-            <p>📚 Autodidacta • 💻 SysAdmin & DBA • 🏛️ Ciudadano europeo</p>
-            <hr>
+<a class="skip" href="#contenido" data-lang-content="es">Ir al contenido</a>
+<a class="skip" href="#content" data-lang-content="en">Skip to content</a>
+
+<div class="switcher" role="group" aria-label="Idioma / Language">
+  <button type="button" id="lang-es" aria-pressed="true">ES</button>
+  <button type="button" id="lang-en" aria-pressed="false">EN</button>
+</div>
+
+<!-- ================= ESPAÑOL ================= -->
+<div data-lang-content="es">
+<div class="shell">
+
+  <aside class="badge">
+    <p class="badge__status"><span class="dot" aria-hidden="true"></span>Abierto a híbrido y remoto · Barcelona</p>
+
+    <h1>Gustavo Javier&nbsp;Jejer</h1>
+    <p class="badge__role">System Engineer · Identidad y seguridad Microsoft
+      <span>Entra ID, Conditional Access, Intune y Defender XDR en entornos híbridos y multi-tenant.</span>
+    </p>
+
+    <ul class="contact">
+      <li><span class="label">Correo</span><a href="mailto:gjjejer@gmail.com">gjjejer@gmail.com</a></li>
+      <li><span class="label">Teléfono</span><a href="tel:+34691016324">+34 691 016 324</a></li>
+      <li><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/gustavo-javier-jejer" rel="me">in/gustavo-javier-jejer</a></li>
+      <li><span class="label">Ubicación</span>Olesa de Montserrat, Barcelona</li>
+      <li><span class="label">Trabajo en la UE</span>Ciudadanía polaca</li>
+    </ul>
+
+    <nav class="nav" aria-label="Secciones">
+      <ol>
+        <li><a href="#perfil">Perfil</a></li>
+        <li><a href="#capacidades">Capacidades</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#formacion">Formación</a></li>
+      </ol>
+    </nav>
+
+    <a class="btn" href="mailto:gjjejer@gmail.com?subject=Oportunidad%20-%20System%20Engineer">Escríbeme</a>
+  </aside>
+
+  <main id="contenido">
+
+    <section id="perfil" aria-labelledby="h-perfil">
+      <h2 id="h-perfil">Perfil</h2>
+      <p class="lede">ICT System Engineer con experiencia en entornos híbridos, especializado en Microsoft 365, Modern Workplace, gestión de identidades y administración de endpoints.</p>
+      <p>Experiencia en la implementación y operación de servicios Microsoft, infraestructura Windows y plataformas de virtualización en entornos corporativos. Actualmente enfocado en la modernización, estandarización y gestión de servicios IT mediante soluciones cloud-managed e infraestructuras híbridas.</p>
+    </section>
+
+    <section id="capacidades" aria-labelledby="h-cap">
+      <h2 id="h-cap">Capacidades</h2>
+      <dl class="domains">
+        <div>
+          <dt>Identidad y acceso</dt>
+          <dd>Entra ID, Conditional Access, MFA, hybrid identity con AD Connect, gestión multi-tenant (MTO), Zero Trust</dd>
         </div>
-        <div class="middle">
-            <p><b>Amplia experiencia en el ámbito de administración de sistemas (Windows Server | Microsoft 365) & DBA.</b></p>
-            <p>¿Quieres conocerme un poco más? <a href="CV-Gustavo-Jejer.pdf" class="CV"> Aquí puedes descargar mi CV. </a></p>
-            <div class="redes">
-                <a target="_blank" href="mailto:gjjejer@gmail.com"> <img src="./images/email.png"> </a>
-                <a target="_blank" href="https://www.linkedin.com/in/gustavo-javier-jejer/"> <img src="./images/linkedin.png"> </a>
-                <a target="_blank" href="https://wa.me/+34691016324"> <img src="./images/whatsapp.png"> </a>
-            </div>
-            <hr>
+        <div>
+          <dt>Microsoft 365</dt>
+          <dd>Exchange Online, SharePoint Online, Teams, gobierno de tenant, licenciamiento</dd>
         </div>
-        <div class="bottom">
-            <h2>
-                <img class="icono" src="./images/work.png">
-                Experiencia:
-            </h2>
-            <p><em>Me apasiona la tecnología, es por ello que cuento hoy con más de 5 años de experiencia en el rol de administrador de sistemas, 2 años
-                como DBA (MS SQL Server) y 2 años bajo roles relacionados a DevOps/SRO. Mi propósito es ofrecer un servicio proactivo, manteniendo un entorno
-                de sistemas ordenado con perspectivas de crecimiento.
-            </p>
-            <h2>
-                <img class="icono" src="./images/code.png">
-                Tecnologias / Herramientas:
-            </h2>
-            <ul>
-                <li><span class="tech">Windows Server (AD, DNS, DHCP, GPO's)</span></li>
-                <li><span class="tech">Hyper-V & VMWARE</span></li>
-                <li><span class="tech">MS SQL Server</span></li>
-                <li><span class="tech">SolarWinds DPA (Database Performance Analyzer)</span></li>
-                <li><span class="tech">Visual Studio Code</span></li>
-                <li><span class="tech">Powershell</span></li>
-                <li><span class="tech">Bash</span></li>
-                <li><span class="tech">Python</span></li>
-                <li><span class="tech">Ansible</span></li>
-                <li><span class="tech">Azure DevOps</span></li>
-                <li><span class="tech">Linux (Ubuntu & Debian)</span></li>
-                <li><span class="tech">GIT</span></li>
-                <li><span class="tech">Docker</span></li>
-                <li><span class="tech">Acronis & Backup Exec</span></li>
-            </ul>
-            <h2>
-                <img class="icono" src="./images/online-training.png">
-                Capacitaciones:
-            </h2>
-            <img src="./images/cursos1.png">
-            <img src="./images/cursos2.png">
+        <div>
+          <dt>Endpoint y detección</dt>
+          <dd>Intune, compliance policies, security baselines, hardening, Defender XDR (Endpoint y Office 365), SCCM, WSUS</dd>
         </div>
-        <footer>
-            Copyright © 2023 All Rights Reserved by Gustavo Jejer
-        </footer>
-    </main>
+        <div>
+          <dt>Infraestructura</dt>
+          <dd>Windows Server, Active Directory, DNS, DHCP, GPOs, VMware, Hyper-V, Acronis, Veeam</dd>
+        </div>
+        <div>
+          <dt>Automatización</dt>
+          <dd>PowerShell, Ansible Tower, bases de datos en Azure</dd>
+        </div>
+        <div>
+          <dt>Redes y perímetro</dt>
+          <dd>VPN, firewalls Check Point y SonicWall, switching Cisco y Unifi</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section id="experiencia" aria-labelledby="h-exp">
+      <h2 id="h-exp">Experiencia</h2>
+
+      <article class="role">
+        <p class="meta"><b>2025 — hoy</b>Barcelona<br>Híbrido</p>
+        <div>
+          <h3>System Engineer</h3>
+          <p class="where"><strong>Grupo IPCOM</strong> · grupo paneuropeo B2B · promoción interna desde Flexicel</p>
+          <ul>
+            <li>Ejecuto el roadmap de seguridad de Microsoft 365 para varias filiales, alineando cada medida con principios de Zero Trust.</li>
+            <li>Desplegué MFA al 100% de los usuarios y reduje la superficie de ataque por credenciales comprometidas.</li>
+            <li>Diseño y despliego políticas de Conditional Access con control de acceso por identidad y contexto.</li>
+            <li>Onboarding y configuración de Defender XDR (Endpoint y Office 365), con mejora medible en detección y respuesta.</li>
+            <li>Gestión de dispositivos con Intune: compliance policies, security baselines y hardening.</li>
+            <li>Documento procedimientos y estandarizo la operación entre compañías del grupo.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role">
+        <p class="meta"><b>2023 — 2025</b>Barcelona</p>
+        <div>
+          <h3>System Administrator</h3>
+          <p class="where"><strong>Flexicel</strong> · industria, filial del grupo</p>
+          <ul>
+            <li>Administración de infraestructura híbrida (Windows Server y VMware) y servicios core —AD, DNS, DHCP, GPOs— con sincronización a Entra ID.</li>
+            <li>Gestión de Microsoft 365: identidades, seguridad inicial y copias de seguridad.</li>
+            <li>Implementación de Defender for Endpoint y hardening de dispositivos, base del modelo de seguridad que luego adoptó el grupo.</li>
+            <li>Backups corporativos con Acronis y Veeam.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role">
+        <p class="meta"><b>2022 — 2023</b>Chile<br>Remoto</p>
+        <div>
+          <h3>DBA</h3>
+          <p class="where"><strong>Arauco</strong> · multinacional forestal</p>
+          <ul>
+            <li>Auditoría y administración de accesos a bases de datos críticas y control de despliegues en producción.</li>
+            <li>Automatización de tareas con Ansible Tower.</li>
+            <li>Administración de máquinas virtuales VMware y bases de datos en Azure.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role">
+        <p class="meta"><b>2017 — 2021</b>Argentina</p>
+        <div>
+          <h3>Sysadmin &amp; DevOps</h3>
+          <p class="where"><strong>Arauco</strong> · entorno de ~1.500 usuarios</p>
+          <ul>
+            <li>Administración de entornos Windows Server, AD, DNS y DHCP.</li>
+            <li>VPN corporativa y seguridad perimetral con Check Point.</li>
+            <li>Implementación y administración de VMware.</li>
+            <li>Soporte N2/N3 de red, sistemas y usuarios VIP.</li>
+            <li>WSUS y SCCM para despliegue de actualizaciones y software.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section id="formacion" aria-labelledby="h-form">
+      <h2 id="h-form">Formación</h2>
+
+      <div class="split">
+        <div>
+          <h3>Certificaciones</h3>
+          <ul class="tags">
+            <li class="tag">Microsoft AZ-900</li>
+            <li class="tag">MCSA Windows Server 2016</li>
+            <li class="tag">Fortinet FCA Cybersecurity</li>
+            <li class="tag">Google Cybersecurity</li>
+            <li class="tag">Cisco CCNA</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Estudios</h3>
+          <p>Analista de Sistemas — Instituto Argentino de Estudios Superiores (IAES)</p>
+          <p class="years">2012 — 2014</p>
+          <h3 style="margin-top:1.25rem">Idiomas</h3>
+          <p>Español nativo · Inglés B2 · aprendiendo alemán</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>Hecho a mano, sin plantilla. Actualizado en septiembre de 2026 · <a href="https://www.linkedin.com/in/gustavo-javier-jejer">LinkedIn</a></p>
+</footer>
+</div>
+
+<!-- ================= ENGLISH ================= -->
+<div data-lang-content="en">
+<div class="shell">
+
+  <aside class="badge">
+    <p class="badge__status"><span class="dot" aria-hidden="true"></span>Open to hybrid and remote · Barcelona</p>
+
+    <h1>Gustavo Javier&nbsp;Jejer</h1>
+    <p class="badge__role">System Engineer · Microsoft Identity &amp; Security
+      <span>Entra ID, Conditional Access, Intune and Defender XDR across hybrid, multi-tenant environments.</span>
+    </p>
+
+    <ul class="contact">
+      <li><span class="label">Email</span><a href="mailto:gjjejer@gmail.com">gjjejer@gmail.com</a></li>
+      <li><span class="label">Phone</span><a href="tel:+34691016324">+34 691 016 324</a></li>
+      <li><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/gustavo-javier-jejer" rel="me">in/gustavo-javier-jejer</a></li>
+      <li><span class="label">Location</span>Olesa de Montserrat, Barcelona</li>
+      <li><span class="label">EU work rights</span>Polish citizenship</li>
+    </ul>
+
+    <nav class="nav" aria-label="Sections">
+      <ol>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+      </ol>
+    </nav>
+
+    <a class="btn" href="mailto:gjjejer@gmail.com?subject=Opportunity%20-%20System%20Engineer">Get in touch</a>
+  </aside>
+
+  <main id="content">
+
+    <section id="profile" aria-labelledby="h-profile">
+      <h2 id="h-profile">Profile</h2>
+      <p class="lede">ICT System Engineer with experience in hybrid environments, specializing in Microsoft 365, Modern Workplace, identity management and endpoint administration.</p>
+      <p>Experienced in the implementation and operation of Microsoft services, Windows infrastructure and virtualization platforms in corporate environments. Currently focused on the modernization, standardization and management of IT services through cloud-managed solutions and hybrid infrastructures.</p>
+    </section>
+
+    <section id="skills" aria-labelledby="h-skills">
+      <h2 id="h-skills">Skills</h2>
+      <dl class="domains">
+        <div>
+          <dt>Identity &amp; access</dt>
+          <dd>Entra ID, Conditional Access, MFA, hybrid identity with AD Connect, multi-tenant management (MTO), Zero Trust</dd>
+        </div>
+        <div>
+          <dt>Microsoft 365</dt>
+          <dd>Exchange Online, SharePoint Online, Teams, tenant governance, licensing</dd>
+        </div>
+        <div>
+          <dt>Endpoint &amp; detection</dt>
+          <dd>Intune, compliance policies, security baselines, hardening, Defender XDR (Endpoint &amp; Office 365), SCCM, WSUS</dd>
+        </div>
+        <div>
+          <dt>Infrastructure</dt>
+          <dd>Windows Server, Active Directory, DNS, DHCP, GPOs, VMware, Hyper-V, Acronis, Veeam</dd>
+        </div>
+        <div>
+          <dt>Automation</dt>
+          <dd>PowerShell, Ansible Tower, Azure-hosted databases</dd>
+        </div>
+        <div>
+          <dt>Networking &amp; perimeter</dt>
+          <dd>VPN, Check Point and SonicWall firewalls, Cisco and Unifi switching</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section id="experience" aria-labelledby="h-exp-en">
+      <h2 id="h-exp-en">Experience</h2>
+
+      <article class="role">
+        <p class="meta"><b>2025 — now</b>Barcelona<br>Hybrid</p>
+        <div>
+          <h3>System Engineer</h3>
+          <p class="where"><strong>Grupo IPCOM</strong> · pan-European B2B group · internal promotion from Flexicel</p>
+          <ul>
+            <li>Run the Microsoft 365 security roadmap across multiple subsidiaries, aligning every measure with Zero Trust principles.</li>
+            <li>Rolled out MFA to 100% of users, cutting the attack surface tied to compromised credentials.</li>
+            <li>Design and deploy Conditional Access policies for identity- and context-based access control.</li>
+            <li>Onboarded and configured Defender XDR (Endpoint and Office 365), with measurable gains in detection and response.</li>
+            <li>Manage the device fleet with Intune: compliance policies, security baselines and hardening.</li>
+            <li>Document technical procedures and standardize operations across group companies.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role">
+        <p class="meta"><b>2023 — 2025</b>Barcelona</p>
+        <div>
+          <h3>System Administrator</h3>
+          <p class="where"><strong>Flexicel</strong> · industry, group subsidiary</p>
+          <ul>
+            <li>Administered hybrid infrastructure (Windows Server and VMware) and core services —AD, DNS, DHCP, GPOs— synced to Entra ID.</li>
+            <li>Managed Microsoft 365: identities, initial security posture and backups.</li>
+            <li>Rolled out Defender for Endpoint and device hardening, laying the groundwork for the security model the group later adopted.</li>
+            <li>Ran corporate backups with Acronis and Veeam.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role">
+        <p class="meta"><b>2022 — 2023</b>Chile<br>Remote</p>
+        <div>
+          <h3>DBA</h3>
+          <p class="where"><strong>Arauco</strong> · forestry multinational</p>
+          <ul>
+            <li>Audited and administered access to critical databases and controlled production deployments.</li>
+            <li>Automated tasks with Ansible Tower.</li>
+            <li>Administered VMware virtual machines and Azure-hosted databases.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role">
+        <p class="meta"><b>2017 — 2021</b>Argentina</p>
+        <div>
+          <h3>Sysadmin &amp; DevOps</h3>
+          <p class="where"><strong>Arauco</strong> · ~1,500-user environment</p>
+          <ul>
+            <li>Administered Windows Server, AD, DNS and DHCP environments.</li>
+            <li>Managed corporate VPN and perimeter security with Check Point.</li>
+            <li>Implemented and administered VMware.</li>
+            <li>Provided L2/L3 support for network, systems and VIP-user incidents.</li>
+            <li>Ran WSUS and SCCM for update and software deployment.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section id="education" aria-labelledby="h-edu">
+      <h2 id="h-edu">Education</h2>
+
+      <div class="split">
+        <div>
+          <h3>Certifications</h3>
+          <ul class="tags">
+            <li class="tag">Microsoft AZ-900</li>
+            <li class="tag">MCSA Windows Server 2016</li>
+            <li class="tag">Fortinet FCA Cybersecurity</li>
+            <li class="tag">Google Cybersecurity</li>
+            <li class="tag">Cisco CCNA</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Studies</h3>
+          <p>Systems Analyst — Instituto Argentino de Estudios Superiores (IAES)</p>
+          <p class="years">2012 — 2014</p>
+          <h3 style="margin-top:1.25rem">Languages</h3>
+          <p>Native Spanish · English B2 · learning German</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>Handbuilt, no template. Updated September 2026 · <a href="https://www.linkedin.com/in/gustavo-javier-jejer">LinkedIn</a></p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btnEs = document.getElementById('lang-es');
+  var btnEn = document.getElementById('lang-en');
+
+  function apply(lang){
+    root.setAttribute('data-lang', lang);
+    root.setAttribute('lang', lang);
+    btnEs.setAttribute('aria-pressed', String(lang === 'es'));
+    btnEn.setAttribute('aria-pressed', String(lang === 'en'));
+    try{ localStorage.setItem('cv-lang', lang); }catch(e){}
+  }
+
+  var saved;
+  try{ saved = localStorage.getItem('cv-lang'); }catch(e){}
+  apply(saved || 'es');
+
+  btnEs.addEventListener('click', function(){ apply('es'); });
+  btnEn.addEventListener('click', function(){ apply('en'); });
+})();
+</script>
+
 </body>
 </html>
